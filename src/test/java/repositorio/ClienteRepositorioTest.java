@@ -1,9 +1,8 @@
 package repositorio;
 
 import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import dao.ClienteRepositorio;
@@ -11,9 +10,8 @@ import entidades.Cliente;
 
 public class ClienteRepositorioTest {
 
-	@Test
-	@Ignore
-	public void testSalvar() {
+	@BeforeClass
+	public static void testSalvar() {
 		Cliente c = new Cliente();
 		c.setCpf("1354984651");
 		c.setNome("Pedro");
@@ -24,10 +22,9 @@ public class ClienteRepositorioTest {
 		try {
 			ClienteRepositorio cr = new ClienteRepositorio();
 			cr.salvar(c, false);
-
-			assertEquals(c, cr.buscarCliente(c,true));
+			assertEquals(c, cr.buscarCliente(c, true));
 		} catch (Exception e) {
-			fail("Falha ao Salvar! "+ e.getMessage());
+			fail("Falha ao Salvar! " + e.getMessage());
 		}
 	}
 
@@ -35,32 +32,47 @@ public class ClienteRepositorioTest {
 	public void testAtualizar() {
 		Cliente c = new Cliente();
 		ClienteRepositorio cr = new ClienteRepositorio();
+
 		c.setCpf("1354984651");
 		c = cr.buscarCliente(c, true);
 		c.setNome("Fernando");
 		c.setEmail("Fernando@asda.com");
 		c.setSenha("1654823");
 		c.setTelefone("9654861");
-		
+
 		try {
 			cr.atualizar(c, true);
-			
-			assertEquals("Fernando",cr.buscarCliente(c, true).getNome());
+			assertEquals("Fernando", cr.buscarCliente(c, true).getNome());
 		} catch (Exception e) {
-			fail("Falha ao Atulizar Cliente "+ e.getMessage() );
+			fail("Falha ao Atulizar Cliente " + e.getMessage());
 		}
 	}
 
 	@Test
-	@Ignore
 	public void testEncontrar() {
-		fail("Not yet implemented");
+		Cliente c = new Cliente();
+		ClienteRepositorio cr = new ClienteRepositorio();
+		c.setCpf("1354984651");
+
+		try {
+			Cliente cliente = new Cliente();
+			cliente = cr.buscarCliente(c, true);
+			assertNotNull(cliente);
+		} catch (Exception e) {
+			fail("Objeto não encontrado! " + e.getMessage());
+		}
 	}
 
-	@Test
-	@Ignore
-	public void testRemover() {
-		fail("Not yet implemented");
+	@AfterClass
+	public static void testRemover() {
+		Cliente c = new Cliente();
+		ClienteRepositorio cr = new ClienteRepositorio();
+		c.setCpf("1354984651");
+		try {
+			cr.removerCliente(c);
+			assertNull(cr.buscarCliente(c, true));
+		} catch (Exception e) {
+			fail("Falha ao deletar cliente " + e.getMessage());
+		}
 	}
-
 }

@@ -16,12 +16,17 @@ public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoReposito
 	 * @return Objeto
 	 */
 	public T salvar(T entity, boolean b) {
-
-		em.getTransaction().begin();
-		em.persist(entity);
-		em.getTransaction().commit();
-		if (b)
-			em.close();
+		if(em==null || !em.isOpen())
+			em = JpaUtil.getEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(entity);
+			em.getTransaction().commit();
+			if (b)
+				em.close();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
 		return entity;
 	}
 
@@ -36,12 +41,15 @@ public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoReposito
 	public T atualizar(T entity, boolean b) {
 		if(em==null || !em.isOpen())
 			em = JpaUtil.getEntityManager();
-		em.getTransaction().begin();
-		em.merge(entity);
-		em.getTransaction().commit();
-		if (b)
-			em.close();
-		
+		try {
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+			if (b)
+				em.close();			
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
 		return entity;
 	}
 
@@ -54,7 +62,9 @@ public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoReposito
 	 * @return Objeto
 	 */
 	public T encontrar(Class<T> entity, I id, boolean b) {
-		return em.find(entity, id);
+		if(em==null || !em.isOpen())
+			em = JpaUtil.getEntityManager();		
+		return em.find(entity, id); 
 	}
 
 	/**
@@ -65,9 +75,18 @@ public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoReposito
 	 * @return Objeto
 	 */
 	public void remover(Class<T> entity, I id, boolean b) {
-		T entidade = em.find(entity, id);
-		em.getTransaction().begin();
-		em.remove(entidade);
-		em.getTransaction().commit();
+		if(em==null || !em.isOpen())
+			em = JpaUtil.getEntityManager();
+		try {
+			T entidade = em.find(entity, id);
+			em.getTransaction().begin();
+			em.remove(entidade);
+			em.getTransaction().commit();
+			if(b)
+				em.close();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+		
 	}
 }
