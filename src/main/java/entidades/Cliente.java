@@ -3,10 +3,10 @@ package entidades;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
+
+import com.sun.istack.NotNull;
 
 @Entity
 public class Cliente implements IEntidade {
@@ -17,20 +17,25 @@ public class Cliente implements IEntidade {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cpf;
+	private String cpf;
+	@NotNull
 	private String nome;
+	@NotNull
 	private String email;
+	@NotNull
 	private String telefone;
+	@NotNull
 	private String senha;
+	
 	@Version
+	@NotNull
 	private Date version;
 
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int cpf, String nome, String email, String telefone, String senha, Date version) {
+	public Cliente(String cpf, String nome, String email, String telefone, String senha, Date version) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
@@ -40,17 +45,19 @@ public class Cliente implements IEntidade {
 		this.version = version;
 	}
 
+	
+
 	/**
 	 * @return the cpf
 	 */
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
 	/**
 	 * @param cpf the cpf to set
 	 */
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -127,5 +134,7 @@ public class Cliente implements IEntidade {
 	public Object getPrimaryKey() {
 		return getCpf();
 	}
+
+	
 
 }
