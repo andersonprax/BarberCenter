@@ -1,0 +1,61 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<h:body>
+		<h:form>
+
+			<p:panel header="Cadastro De Clientes">
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Digite seu Nome" for="nome" />
+					<p:outputLabel value="Digite seu CPF" for="cpf" />
+
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}">
+					</p:inputText>
+					<p:inputText id="cpf" value="#{clienteBean.cliente.cpf}">
+					</p:inputText>
+
+					<p:outputLabel value="Digite seu Telefone" for="telefone" />
+					<p:outputLabel value="Digite seu Email" />
+
+					<p:inputText id="telefone" value="#{clienteBean.cliente.telefone}">
+					</p:inputText>
+					<p:inputText id="email" value="#{clienteBean.cliente.email}">
+					</p:inputText>
+
+
+					<p:outputLabel value="Digite sua Senha" />
+					<p:column></p:column>
+
+					<p:password id="senha" value="#{clienteBean.cliente.senha}"
+						feedback="true" weakLabel="Fraca" goodLabel="Razoavel"
+						strongLabel="Forte" maxlength="10" promptLabel="Insira sua Senha"
+						requiredMessage="Senha obrigatoria">
+					</p:password>
+					<p:column></p:column>
+
+
+					<p:outputLabel value="Confirme sua Senha" />
+					<p:column></p:column>
+					<p:password id="confirmarSenha"
+						value="#{clienteBean.confirmarSenha}">
+					</p:password>
+
+					<p:column></p:column>
+					<p:commandButton actionListener="#{clienteBean.validarSalvar}"
+						value="Cadastrar"></p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+
+
+		</h:form>
+	</h:body>
+</ui:composition>
