@@ -8,6 +8,11 @@ import dao.ConstantesSistema;
 import entidades.Cliente;
 import fachada.Fachada;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 @ManagedBean
 public class ClienteBean {
 
@@ -23,6 +28,8 @@ public class ClienteBean {
 
 		if (Fachada.getInstancia().validarSalvarCliente(cliente) == true)
 			salvarCliente(cliente);
+		else
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,ConstantesSistema.ERROR,""));
 	}
 
 	public void salvarCliente(Cliente cliente) {
@@ -32,6 +39,10 @@ public class ClienteBean {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	
+	public List<Cliente> listarClientes(){
+		return Fachada.getInstancia().listarClientes();
 	}
 
 	/**

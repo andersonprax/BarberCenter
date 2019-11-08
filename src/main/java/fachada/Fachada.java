@@ -1,8 +1,15 @@
 package fachada;
 
+import java.util.List;
+
 import controller.ControllerCliente;
 import entidades.Cliente;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class Fachada implements IFachada {
 
 	private static Fachada instancia = new Fachada();
@@ -28,6 +35,10 @@ public class Fachada implements IFachada {
 	
 	public void salvarCliente(Cliente cliente) {
 		new ControllerCliente().salvarCliente(cliente);
+	}
+	
+	public List<Cliente> listarClientes(){
+		return new ControllerCliente().listarClientes();
 	}
 	
 	//Fim Metodos Cliente

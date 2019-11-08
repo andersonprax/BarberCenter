@@ -2,6 +2,11 @@ package fachada;
 
 import entidades.Cliente;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public interface IFachada {
 	
 	//Inicio metodos do cliente
