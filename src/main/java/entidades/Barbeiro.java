@@ -1,6 +1,8 @@
 package entidades;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import com.sun.istack.NotNull;
 
 @Entity
 public class Barbeiro implements IEntidade {
@@ -21,10 +25,16 @@ public class Barbeiro implements IEntidade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotNull
 	private String nome;
+	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	private Date horarios;
+	
 	@Version
+	@NotNull
 	private Date version;
 
 	public Barbeiro() {
