@@ -41,6 +41,10 @@ public class ClienteBean {
 		}
 	}
 	
+	public String paginaDeCadastroDoCliente() {
+		return "cadastroDeCliente.xhtml";
+	}
+	
 	public List<Cliente> listarClientes(){
 		return Fachada.getInstancia().listarClientes();
 	}
