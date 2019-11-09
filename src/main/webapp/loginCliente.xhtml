@@ -1,0 +1,33 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+
+	</h:head>
+	<h:body>
+		<h:form >
+			<p:panel header="Bem Vindo!" footer="As Melhores Barbearias Do Brasil!" >
+				<p:messages id="messages" showDetail="false" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<p:panelGrid columns="1">
+					<p:outputLabel value="Email" for="email"></p:outputLabel>
+					 <p:inputText id="email" value="#{clienteBean.cliente.email}" maxlength="30"></p:inputText>
+					 <p:outputLabel value="Senha" for="senha"></p:outputLabel>
+					 <p:password id="senha" value="#{clienteBean.cliente.senha}" maxlength="10"></p:password>
+					
+					<p:commandButton value="Logar" ></p:commandButton>
+					<h6 align="center" >OU</h6>
+					<p:commandButton  value="Cadastre-se"  action="#{clienteBean.paginaDeCadastroDoCliente()}" > </p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</h:body>
+
+
+</ui:composition>

@@ -1,12 +1,51 @@
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import jpaUtil.JpaUtil;
 
+/**
+ * @author pedro.silva
+ *
+ * @param <T>
+ * @param <I>
+ */
 public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoRepositorio<T, I> {
 
 	EntityManager em = JpaUtil.getEntityManager();
 
+	//Atributo que receberá a classe para fazer a busca e retornar uma lista de qualquer entidade
+	public Class<T> entityClass;
+	
+	/**
+	 * Setando o tipo de classe antes da busca
+	 * @param entity
+	 */
+	public void setarEntidade(Class<T> entity) {
+		this.entityClass = entity;
+	}
+	
+	/**
+	 * Retorna uma lista com o tipo de entidade passado
+	 * @return List<T>
+	 */
+	public Class<T> getEntityClass(){
+		return this.entityClass;
+	}
+	
+	public List<T> listarTodos(){
+		if(em==null || !em.isOpen())
+			em = JpaUtil.getEntityManager();
+		//Montando a query generica para busca na base
+		String query = "select t from "+ getEntityClass().getSimpleName() + "t";
+		//Query typada que retornará a lista com a classe passada no construtor concreto.
+		TypedQuery<T> typedQuery = em.createQuery(query, getEntityClass());
+		//Lista que será populada com o retorno da base
+		List<T> resultSet = typedQuery.getResultList();
+		//Retornando a lista
+		return resultSet;
+	}
 	/**
 	 * Metodo generico para salvar Entidades
 	 * 
@@ -87,6 +126,5 @@ public abstract class BasicoAbstratoRepositorio<T, I> implements IBasicoReposito
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 		}
-		
 	}
 }

@@ -8,7 +8,17 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BarberCenter Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
+	<!-- Repositorio Do PrimeFaces que Nao existe no Maven -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
@@ -45,6 +55,21 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.20</version>
 		</dependency>
+
+		<!-- PrimeFaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.2</version>
+		</dependency>
+
+		<!-- PrimeFaces Themes -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>

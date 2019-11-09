@@ -7,8 +7,17 @@ import javax.persistence.FetchType;
 import entidades.Cliente;
 import jpaUtil.JpaUtil;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class ClienteRepositorio extends BasicoAbstratoRepositorio<Cliente, Integer> {
 
+	//Construtor que seta o tipo de classe no Dao Abstrato, podendo agora fazer a busca no metodo listar Todos
+	public ClienteRepositorio() {
+		setarEntidade(Cliente.class);
+	}
 	/**
 	 * Metodo especifico do cliente para fazer a busca
 	 * @param cliente
