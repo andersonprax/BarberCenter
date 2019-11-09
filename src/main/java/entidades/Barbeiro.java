@@ -41,11 +41,12 @@ public class Barbeiro implements IEntidade {
 		super();
 	}
 
-	public Barbeiro(int id, String nome, Date horarios) {
+	public Barbeiro(int id, String nome, Date horarios, Date version) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.horarios = horarios;
+		this.version = version;
 	}
 
 	public int getId() {
