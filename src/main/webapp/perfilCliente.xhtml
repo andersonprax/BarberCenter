@@ -8,8 +8,11 @@
 	<h:head>
 
 	</h:head>
-	<h:body onload="#{clienteBean.getCliente()}">
+	<h:body >
 		<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate/>			
+		</p:messages>
 			<h2 align="center">Bem vindo Cliente</h2>
 			<p:menubar>
 				<p:menuitem value="Página Principal" url="" icon="fa fa-home"></p:menuitem>
@@ -62,24 +65,18 @@
 
 					<p:commandButton
 						actionListener="#{clienteBean.atualizarDadosDoCliente}"
-						value="Atualizar"></p:commandButton>
+						value="Atualizar" update=" senha confirmarSenha messages"></p:commandButton>
 					
-					<p:growl id="msg" showDetail="true">
-					</p:growl>
-
-					<p:commandButton value="Excluir Conta"  actionListener="#{clienteBean.removerCliente}" update="msg">
-						<p:confirm header="Que Pena!"  
-							message="Tem certeza que Deseja Excluir Sua Conta?"
-							icon="pi pi-exclamation-triangle" ></p:confirm>
+					<p:commandButton value="Excluir Conta"  actionListener="#{clienteBean.removerCliente}" >
+						<p:confirm header="Que Pena!"  message="Tem certeza que Deseja Excluir Sua Conta?"	icon="pi pi-exclamation-triangle" />
 					</p:commandButton>
 
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"  >
-						<p:commandButton value="Sim" type="button" 
-							styleClass="ui-confirmdiaglog-yes" icon="pi pi-check" />
-						<p:commandButton value="Não" type="button"
-							styleClass="ui-confirmdiaglog-no" icon="pi pi-check" />
-					</p:confirmDialog>
-					
+					<p:confirmDialog id="confirmDialog" global="true" showEffect="fade" hideEffect="fade" appendToBody="true" severity="alert" >
+						<h:form id="formParaExcluir">
+						<p:commandButton value="Sim" type="button" 	styleClass="ui-confirmdiaglog-yes" icon="pi pi-check" onclick="#{clienteBean.removerCliente()}" oncomplete="confirmDialog.hide()"/>
+						<p:commandButton value="Não" type="button"	styleClass="ui-confirmdiaglog-no" icon="pi pi-check" onclick="confirmDialog.hide()" />
+						</h:form>
+					</p:confirmDialog>		
 
 				</p:panelGrid>
 

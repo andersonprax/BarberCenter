@@ -55,6 +55,10 @@ public class Fachada implements IFachada {
 	public void removerCliente(Cliente cliente) {
 		new ControllerCliente().removerCliente(cliente);
 	}
+	
+	public Cliente buscarCliente(Cliente cliente, boolean b) {
+		return new ControllerCliente().buscarCliente(cliente, b);
+	}
 	public List<Cliente> listarClientes(){
 		return new ControllerCliente().listarClientes();
 	}

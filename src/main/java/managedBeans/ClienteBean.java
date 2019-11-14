@@ -45,17 +45,27 @@ public class ClienteBean {
 				// base
 				if (cliente.getSenha().equals(confirmarSenha)) {
 					try {
-						// Persistir Cliente na base
-						salvarCliente(cliente);						
-						// Redirecionar para pagina de perfil
-						redirecionarPagPerfilDoCliente();
+						//Validando se já existe registro na Base com os dados preenchidos na tela. Se não houver, será obtido null e passa.
+						if (consultarCliente(true) == null) {
+							// Persistir Cliente na base
+							salvarCliente(cliente);
+							FacesContext.getCurrentInstance().addMessage(null,
+									new FacesMessage(FacesMessage.SEVERITY_INFO, ConstantesSistema.SALVO_SUCESSO, ""));
+							// Redirecionar para pagina de perfil
+							redirecionarPagPerfilDoCliente();
+						}else {
+							//Caso retorne valor do banco com os dados inseridos na tela, o cliente ja possui cadastro
+							FacesContext.getCurrentInstance().addMessage(null,
+									new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantesSistema.CLIENTE_JA_CADASTRADO, ""));
+						}
 					} catch (Exception e) {
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, "");
+						//Em caso de erro e exibida essa msg
+						FacesContext.getCurrentInstance().addMessage(null,
+								new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 					}
-
 				}
-
 				else {
+					//Msg de erro caso a senha de confirmação nao seja igual a senha digitada previamente.
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantesSistema.CONFIRMACAO_DE_SENHA, ""));
 				}
@@ -63,6 +73,7 @@ public class ClienteBean {
 				// Se o email não for valido exibo a mensagem.
 				FacesContext.getCurrentInstance().addMessage(null, faces);
 		} else
+			//Se faltou preencher algum campo e exibida a msg abaixo. 
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantesSistema.ERROR, ""));
 	}
@@ -74,7 +85,7 @@ public class ClienteBean {
 		if (Fachada.getInstancia().validarSalvarCliente(cliente)) {
 			// validando o email
 			FacesMessage faces = Fachada.getInstancia().validarEmail(cliente);
-			if(faces==null) {
+			if (faces == null) {
 				// Se o email está correto - Chamo metodo para criptografar a senha
 				criptografarSenha(cliente.getSenha());
 				// Criptografando senha de confirmação
@@ -85,33 +96,40 @@ public class ClienteBean {
 					try {
 						// Atualizar Cliente na base
 						Fachada.getInstancia().atulializarCliente(cliente);
-						// Redirecionar para pagina de perfil
-						redirecionarPagPerfilDoCliente();
+						FacesContext.getCurrentInstance().addMessage(cliente.getNome(),
+								new FacesMessage(FacesMessage.SEVERITY_INFO, ConstantesSistema.SALVO_SUCESSO, ""));
 					} catch (Exception e) {
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, "");
+						FacesContext.getCurrentInstance().addMessage(null,
+								new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 					}
 				}
 			}
 		}
-
-		Fachada.getInstancia().salvarCliente(cliente);
 	}
-	
+
 	/**
 	 * Metodo que faz a deleção do cliente na base
 	 */
 	public void removerCliente() {
-		if(cliente!=null) {
-			Fachada.getInstancia().removerCliente(cliente);
-			cliente = null;
+		if (cliente != null) {
 			try {
+				Fachada.getInstancia().removerCliente(cliente);
 				FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_LOGIN_CLIENTE);
 			} catch (Exception e) {
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, "");
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 			}
-			
 		}
-		
+	}
+
+	/**
+	 * Metodo que faz a busca de um unico registro do cliente na base
+	 * 
+	 * @param b True para fechar a conexao ou false para deixar aberta.
+	 * @return Cliente
+	 */
+	public Cliente consultarCliente(boolean b) {
+		return Fachada.getInstancia().buscarCliente(cliente, b);
 	}
 
 	/**
@@ -131,10 +149,9 @@ public class ClienteBean {
 	public void salvarCliente(Cliente cliente) {
 		try {
 			Fachada.getInstancia().salvarCliente(cliente);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, ConstantesSistema.SALVO_SUCESSO, ""));
 		} catch (Exception e) {
-			new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, "");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 		}
 	}
 
@@ -175,7 +192,7 @@ public class ClienteBean {
 	/**
 	 * @return the cliente
 	 */
-	public Cliente getCliente() {			
+	public Cliente getCliente() {
 		return cliente;
 	}
 
@@ -213,5 +230,4 @@ public class ClienteBean {
 	public void setConfirmarSenha(String confirmarSenha) {
 		this.confirmarSenha = confirmarSenha;
 	}
-
 }

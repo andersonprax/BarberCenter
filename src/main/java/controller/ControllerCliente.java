@@ -76,6 +76,16 @@ public class ControllerCliente {
 	public void removerCliente(Cliente cliente) {
 		new ClienteRepositorio().removerCliente(cliente);
 	}
+	
+	/**
+	 * Metodo que busca um unico registro de um cliente na base
+	 * @param cliente
+	 * @param b True para fechar a conexao e false para deixar aberta
+	 * @return Cliente
+	 */
+	public Cliente buscarCliente(Cliente cliente, boolean b) {
+		return new ClienteRepositorio().buscarCliente(cliente, b);
+	}
 	/**
 	 * Metodo que lista todos os clientes cadastrado no sgbd
 	 * 
