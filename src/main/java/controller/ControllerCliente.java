@@ -46,7 +46,7 @@ public class ControllerCliente {
 				message = null;
 			else
 				message = new FacesMessage(FacesMessage.SEVERITY_WARN,
-						cliente.getEmail() + " " + ConstantesSistema.EMAIL_INVALIDO, "");
+						cliente.getEmail() + " " + ConstantesSistema.EMAIL_OU_SENHA_INVALIDO, "");
 		}
 		return message;
 	}
@@ -85,6 +85,17 @@ public class ControllerCliente {
 	 */
 	public Cliente buscarCliente(Cliente cliente, boolean b) {
 		return new ClienteRepositorio().buscarCliente(cliente, b);
+	}
+	
+
+	/**
+	 * Metodo que retorna o cliente a partir do email e senha fornecia na tela de login
+	 * @param cliente
+	 * @param b True para fechar conexao e false para nao
+	 * @return Cliente
+	 */
+	public Cliente login(Cliente cliente, boolean b) {
+		return new ClienteRepositorio().login(cliente, b);
 	}
 	/**
 	 * Metodo que lista todos os clientes cadastrado no sgbd

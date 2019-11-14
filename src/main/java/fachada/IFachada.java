@@ -27,6 +27,8 @@ public interface IFachada {
 	
 	public Cliente buscarCliente(Cliente cliente, boolean b);
 	
+	public Cliente login(Cliente cliente, boolean b);
+	
 	public FacesMessage validarEmail(Cliente cliente);
 	//Fim Metodos Cliente
 

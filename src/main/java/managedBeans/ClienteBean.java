@@ -154,6 +154,39 @@ public class ClienteBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 		}
 	}
+	
+	/**
+	 * Metodo que 
+	 */
+	public void login() {
+		try {
+			//Setando senha na variavel de confirmação ja com a criptografia
+			confirmarSenha = Fachada.getInstancia().criptografarSenha(cliente.getSenha());
+			//setando a senha criptografada no objeto, e assim fazer a busca na base
+			cliente.setSenha(confirmarSenha);
+			//Indo buscar onjeto na base
+			cliente = Fachada.getInstancia().login(cliente, true);
+			//Verificando se a senha que foi trazida no objeto confere com a senha de confirmação. Se sim passa.
+			if(cliente==null) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.CADASTRO_NAO_LOCALIZADO, ""));
+			}else if(cliente.getSenha().equals(confirmarSenha) ) {
+					try {
+						FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_PERFIL_CLIENTE);
+					} catch (Exception e) {
+						FacesContext.getCurrentInstance().addMessage(null,
+								new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
+					}
+				
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.EMAIL_OU_SENHA_INVALIDO, ""));
+			}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
+		}			
+	}
 
 	/**
 	 * Metodo que faz o redirecionamento da pag de login, para a pag de cadastro do

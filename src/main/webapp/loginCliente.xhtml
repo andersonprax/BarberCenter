@@ -20,7 +20,7 @@
 					 <p:outputLabel value="Senha" for="senha"></p:outputLabel>
 					 <p:password id="senha" value="#{clienteBean.cliente.senha}" maxlength="10"></p:password>
 					
-					<p:commandButton value="Logar" ></p:commandButton>
+					<p:commandButton value="Logar" action="#{clienteBean.login()}"></p:commandButton>
 					<h6 align="center" >OU</h6>
 					
 					<p:commandButton  value="Cadastre-se"  action="#{clienteBean.redirecionarPagCadastrarCliente}" id="btnCadastrar" > </p:commandButton>
