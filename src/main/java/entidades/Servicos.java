@@ -1,5 +1,6 @@
 package entidades;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -7,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
 
+@Entity
 public class Servicos implements IEntidade {
 
 	private static final long serialVersionUID = 1L;
