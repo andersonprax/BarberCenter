@@ -15,7 +15,7 @@
 </h:head>
 	<h:body>
 		<h:form>
-			<p:panel header="Cadastro De Clientes">
+			<p:panel header="Cadastro De Clientes" >
 				<p:messages id="messages" showDetail="false" closable="true">
 					<p:autoUpdate />
 				</p:messages>
@@ -43,7 +43,7 @@
 					<p:password id="senha" value="#{clienteBean.cliente.senha}"
 						feedback="true" weakLabel="Fraca" goodLabel="Razoavel"
 						strongLabel="Forte" maxlength="10" promptLabel="Insira sua Senha"
-						requiredMessage="Senha obrigatoria">
+						requiredMessage="Senha obrigatoria"  >
 					</p:password>
 					<p:column></p:column>
 
@@ -58,8 +58,9 @@
 					</p:password>
 
 					<p:column></p:column>
-					<p:commandButton actionListener="#{clienteBean.validarSalvar}"
+					<p:commandButton actionListener="#{clienteBean.validarSalvar}" update="messages"
 						value="Cadastrar"></p:commandButton>
+
 				</p:panelGrid>
 			</p:panel>
 		</h:form>

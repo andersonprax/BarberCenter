@@ -1,0 +1,87 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	</h:head>
+	<h:body >
+		<h:form id="formPrincipal">
+			<!-- Tentativa de evitar a invocação automática do botão Excluir -->
+			<p:defaultCommand target="atualizar" />
+			
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate/>			
+			</p:messages>
+			<h2 align="center">Bem vindo Cliente</h2>
+			<p:menubar>
+				<p:menuitem value="Página Principal" url="" icon="fa fa-home"></p:menuitem>
+			</p:menubar>
+			<p:panel header="Se Necessário Atualiza Seu Cadastro!">
+				<p:panelGrid columns="1">
+					<p:outputLabel value="Digite seu Nome" for="nome" />
+
+
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}"
+						required="true" maxlength="50">
+					</p:inputText>
+					<p:outputLabel value="Digite seu CPF" for="cpf" />
+					<p:inputMask mask="999.999.999-99" id="cpf" disabled="true"
+						value="#{clienteBean.cliente.cpf}" required="true" maxlength="11"
+						decimalPlaces="1">
+					</p:inputMask>
+
+					<p:outputLabel value="Digite seu Telefone" for="telefone" />
+
+
+					<p:inputMask mask="(99) 9.9999-9999" id="telefone"
+						value="#{clienteBean.cliente.telefone}" required="true"
+						maxlength="11">
+					</p:inputMask>
+					<p:outputLabel value="Digite seu Email" for="email" />
+					<p:inputText id="email" value="#{clienteBean.cliente.email}"
+						required="true" maxlength="30">
+					</p:inputText>
+
+					<p:outputLabel value="Digite sua Senha" />
+					<p:column></p:column>
+
+					<p:password id="senha" value="#{clienteBean.cliente.senha}"
+						feedback="true" weakLabel="Fraca" goodLabel="Razoavel"
+						strongLabel="Forte" maxlength="10" promptLabel="Insira sua Senha"
+						requiredMessage="Senha obrigatoria">
+					</p:password>
+					<p:column></p:column>
+
+
+					<p:outputLabel value="Confirme sua Senha" />
+					<p:column></p:column>
+					<p:password id="confirmarSenha"
+						value="#{clienteBean.confirmarSenha}" feedback="true"
+						weakLabel="Fraca" goodLabel="Razoavel" strongLabel="Forte"
+						maxlength="10" promptLabel="Confirme sua Senha"
+						requiredMessage="Confirmação de Senha obrigatoria">
+					</p:password>
+
+					<p:commandButton
+						id="atualizar"
+						action="#{clienteBean.atualizarDadosDoCliente}"
+						value="Atualizar" update=" senha confirmarSenha messages"></p:commandButton>
+					
+					<p:commandButton value="Excluir Conta"  onclick="PF('confirmation').show()"	actionListener="#{clienteBean.removerCliente}" update="messages">
+						<p:confirm header="Que Pena!"  message="Tem certeza que Deseja Excluir Sua Conta?"	icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" appendToBody="true" severity="alert" widgetVar="confirmation" >
+						<p:commandButton value="Sim" type="button" 	styleClass="ui-confirmdiaglog-yes" icon="pi pi-check"	onclick="PF('confirmation').hide()"		actionListener="#{clienteBean.removerCliente}"	/>		
+						<p:commandButton value="Não" type="button"	styleClass="ui-confirmdiaglog-no"  icon="pi pi-times" 	onclick="PF('confirmation').hide()"			/>
+					</p:confirmDialog>		
+					
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+		
+	</h:body>
+</ui:composition>

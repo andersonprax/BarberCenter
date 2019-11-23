@@ -2,6 +2,7 @@ package entidades;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Version;
@@ -17,14 +18,19 @@ public class Cliente implements IEntidade {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name = "cpf", length = 14)
 	private String cpf;
 	@NotNull
+	@Column(name = "nome",length = 50)
 	private String nome;
 	@NotNull
+	@Column(name = "email", length = 30)
 	private String email;
 	@NotNull
+	@Column(name = "telefone", length = 50)
 	private String telefone;
 	@NotNull
+	@Column(name = "senha",length = 64)
 	private String senha;
 	
 	@Version

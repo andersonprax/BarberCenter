@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:head>
-
+		
 	</h:head>
 	<h:body>
 		<h:form >
@@ -20,9 +20,10 @@
 					 <p:outputLabel value="Senha" for="senha"></p:outputLabel>
 					 <p:password id="senha" value="#{clienteBean.cliente.senha}" maxlength="10"></p:password>
 					
-					<p:commandButton value="Logar" ></p:commandButton>
+					<p:commandButton id="logar" value="Logar" action="#{clienteBean.login()}"></p:commandButton>
 					<h6 align="center" >OU</h6>
-					<p:commandButton  value="Cadastre-se"  action="#{clienteBean.paginaDeCadastroDoCliente()}" > </p:commandButton>
+					
+					<p:commandButton  value="Cadastre-se"  action="#{clienteBean.redirecionarPagCadastrarCliente}" id="btnCadastrar" > </p:commandButton>
 				</p:panelGrid>
 			</p:panel>
 		</h:form>
