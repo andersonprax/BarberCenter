@@ -7,13 +7,13 @@
 
 	<h:head>
 	</h:head>
-	<h:body >
+	<h:body>
 		<h:form id="formPrincipal">
 			<!-- Tentativa de evitar a invocação automática do botão Excluir -->
 			<p:defaultCommand target="atualizar" />
-			
+
 			<p:messages id="messages" showDetail="true" closable="true">
-				<p:autoUpdate/>			
+				<p:autoUpdate />
 			</p:messages>
 			<h2 align="center">Bem vindo Cliente</h2>
 			<p:menubar>
@@ -49,7 +49,7 @@
 					<p:column></p:column>
 
 					<p:password id="senha" value="#{clienteBean.cliente.senha}"
-						feedback="true" weakLabel="Fraca" goodLabel="Razoavel"
+						feedback="true" weakLabel="Fraca" goodLabel="Razoavel" required="true"
 						strongLabel="Forte" maxlength="10" promptLabel="Insira sua Senha"
 						requiredMessage="Senha obrigatoria">
 					</p:password>
@@ -61,27 +61,31 @@
 					<p:password id="confirmarSenha"
 						value="#{clienteBean.confirmarSenha}" feedback="true"
 						weakLabel="Fraca" goodLabel="Razoavel" strongLabel="Forte"
-						maxlength="10" promptLabel="Confirme sua Senha"
+						maxlength="10" promptLabel="Confirme sua Senha" required="true"
 						requiredMessage="Confirmação de Senha obrigatoria">
 					</p:password>
 
-					<p:commandButton
-						id="atualizar"
-						action="#{clienteBean.atualizarDadosDoCliente}"
-						value="Atualizar" update=" senha confirmarSenha messages"></p:commandButton>
-					
-					<p:commandButton value="Excluir Conta"  onclick="PF('confirmation').show()"	actionListener="#{clienteBean.removerCliente}" update="messages">
-						<p:confirm header="Que Pena!"  message="Tem certeza que Deseja Excluir Sua Conta?"	icon="pi pi-exclamation-triangle" />
+					<p:commandButton id="atualizar"
+						action="#{clienteBean.atualizarDadosDoCliente}" value="Atualizar"
+						update=" senha confirmarSenha messages"></p:commandButton>
+
+					<p:growl id="message" showDetail="true" />
+
+					<p:commandButton value="Excluir Conta" action="#{clienteBean.removerClientes}" update="message">
+						<p:confirm header="Que Pena!" message="Tem certeza que Deseja Excluir Sua Conta?"
+							icon="pi pi-exclamation-triangle" />
 					</p:commandButton>
 
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" appendToBody="true" severity="alert" widgetVar="confirmation" >
-						<p:commandButton value="Sim" type="button" 	styleClass="ui-confirmdiaglog-yes" icon="pi pi-check"	onclick="PF('confirmation').hide()"		actionListener="#{clienteBean.removerCliente}"	/>		
-						<p:commandButton value="Não" type="button"	styleClass="ui-confirmdiaglog-no"  icon="pi pi-times" 	onclick="PF('confirmation').hide()"			/>
-					</p:confirmDialog>		
-					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+
 				</p:panelGrid>
 			</p:panel>
 		</h:form>
-		
+
 	</h:body>
 </ui:composition>
