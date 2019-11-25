@@ -15,7 +15,7 @@ import fachada.Fachada;
  * @author pedro.silva
  *
  */
-@ManagedBean
+@ManagedBean(name = "clienteBean")
 @SessionScoped
 public class ClienteBean {
 
@@ -110,7 +110,7 @@ public class ClienteBean {
 	/**
 	 * Metodo que faz a deleção do cliente na base
 	 */
-	public void removerCliente() {
+	public void removerClientes() {
 		if (cliente != null) {
 			try {
 				Fachada.getInstancia().removerCliente(cliente);
@@ -174,15 +174,18 @@ public class ClienteBean {
 					try {
 						FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_PERFIL_CLIENTE);
 					} catch (Exception e) {
+						//Caso haja algum tipo de erro.
 						FacesContext.getCurrentInstance().addMessage(null,
 								new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 					}
 				
 			}else {
+				//Se os dados de senha não baterem exibo mensagem.
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.EMAIL_OU_SENHA_INVALIDO, ""));
 			}
 		} catch (Exception e) {
+			//Caso haja algum tipo de erro.
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.ERROR, ""));
 		}			
@@ -211,6 +214,19 @@ public class ClienteBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Metodo para Redirecionar para a pag de login do cliente
+	 */
+	public void redirecionarPagLogin() {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_LOGIN_CLIENTE);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
