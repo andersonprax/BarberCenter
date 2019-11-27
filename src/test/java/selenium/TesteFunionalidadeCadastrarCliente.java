@@ -4,15 +4,18 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
 import entidades.Cliente;
 import fachada.Fachada;
 
-public class TesteFunionalidadeCliente {
+public class TesteFunionalidadeCadastrarCliente {
 
 	// Atributos de inicialização
 	private static WebDriver driver;
@@ -96,8 +99,7 @@ public class TesteFunionalidadeCliente {
 		element = driver.findElement(By.id("j_idt4:cadastrar"));
 		// Aqui faço o clique no botão
 		element.click();
-		// Aqui dou um tempo
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		try {
 			// Aqui faço a busca na base pelo cliente já cadastrado acima. Se retornar null,
 			// o cliente não foi cadastrado
@@ -107,49 +109,4 @@ public class TesteFunionalidadeCliente {
 			fail("Não houve o cadastro do cliente");
 		}
 	}
-
-	/**
-	 * metodo que faz a deleção do cliente cadastrado Este teste dará erro pois o
-	 * JSF não está reconhecendo o metodo REMOVER no managedBean Cliente
-	 * 
-	 * @throws InterruptedException
-	 */
-	@After
-	public void testRemoverCliente() throws InterruptedException, NullPointerException {
-		// Aqui pego a url da pagina atual. Pois ouve redirecionamento
-		driver.getCurrentUrl();
-		WebElement element;
-		// Aqui Preencho os campos de Senha
-		element = driver.findElement(By.id("formPrincipal:senha"));
-		element.sendKeys(cliente.getSenha());
-		// Aqui preencho os campos de Senha
-		element = driver.findElement(By.id("formPrincipal:confirmarSenha"));
-		element.sendKeys(cliente.getSenha());
-		// Aguardo 1 seg
-		Thread.sleep(1000);
-		// Aqui encontro o botao de excluir
-		element = driver.findElement(By.id("formPrincipal:j_idt19"));
-		// Aqui faço o clique no botao.
-		element.click();
-		// Aqui dou um tempo para que os elementos estejam prontos e carregados na tela
-		Thread.sleep(1000);
-		// Aqui pego o botão SIM para excluir
-		element = driver.findElement(By.id("formPrincipal:j_idt21"));
-		// Aqui faço o clique no botão
-		element.click();
-
-		try {
-			/*
-			 * ------ Esse metodo dará erro, pois o JSF nao está reconhecendo o metodo
-			 * REMOVER no managedBean Cliente. Passo NULL ciente disso. Caso queira testar,
-			 * remover o NULL e deixar o cliente Caso venha o registro da base o cliente não
-			 * foi excluído. ------
-			 */
-			assertNull(new Fachada().buscarCliente(null/* cliente */, true));
-			Thread.sleep(2000);
-		} catch (NullPointerException e) {
-			assertNull(null);
-		}
-	}
-
 }
