@@ -1,5 +1,6 @@
 package entidades;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +19,15 @@ public class Servicos implements IEntidade {
 	private int id;
 	
 	@NotNull
+	@Column (name = "nome", length = 45)
 	private String nome;
 
 	@NotNull
+	@Column (name = "descricao", length = 45)
 	private String descricao;
 	
 	@NotNull
+	@Column (name = "valor", length = 20)
 	private Double valor;
 	
 	@ManyToOne
@@ -43,8 +47,8 @@ public class Servicos implements IEntidade {
 	}
 
 	public Object getPrimaryKey() {
-		// TODO Auto-generated method stub
-		return null;
+		
+	    return getId();
 	}
 
 	public int getId() {
