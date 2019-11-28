@@ -1,20 +1,21 @@
 package selenium;
 
 import static org.junit.Assert.*;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
 import entidades.Cliente;
 import fachada.Fachada;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class TesteFunionalidadeCadastrarCliente {
 
 	// Atributos de inicialização
@@ -54,13 +55,17 @@ public class TesteFunionalidadeCadastrarCliente {
 	}
 
 	/**
-	 * Metodo que abre a pagina de loing, clica em cadastrar. Faz o novo cadastro do
-	 * cliente.
+	 * Metodo que abre a pagina de loing, clica em cadastrar. E na pagina de cadastro
+	 * preenche todos os dados para o novo cadastro do cliente. Após clica no botão cadastrar 
+	 * e realizar o cadastro.
 	 * 
 	 * @throws InterruptedException
 	 */
 	@Test
 	public void testCadastrarCliente() throws InterruptedException {
+		
+		/* Arrange */
+		
 		// Abrindo a página inicial
 		driver.get("localhost:8080/BarberCenter/loginCliente.xhtml");
 		// Dando um tempo para que a página esteja pronta para receber o click no botao.
@@ -95,11 +100,17 @@ public class TesteFunionalidadeCadastrarCliente {
 		// Mesma situação dos comentários acima
 		element = driver.findElement(By.id("j_idt4:confirmarSenha"));
 		element.sendKeys(cliente.getSenha());
+		
+		/* ACT */
+		
 		// Aqui encontro o botao cadastrar
 		element = driver.findElement(By.id("j_idt4:cadastrar"));
 		// Aqui faço o clique no botão
 		element.click();
 		Thread.sleep(5000);
+		
+		/* ASSERT */
+		
 		try {
 			// Aqui faço a busca na base pelo cliente já cadastrado acima. Se retornar null,
 			// o cliente não foi cadastrado

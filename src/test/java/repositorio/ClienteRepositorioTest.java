@@ -8,8 +8,16 @@ import org.junit.Test;
 import dao.ClienteRepositorio;
 import entidades.Cliente;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class ClienteRepositorioTest {
 
+	/**
+	 * Metodo que faz o test de persistencia do cliente antes dos metodos com @Test
+	 */
 	@BeforeClass
 	public static void testSalvar() {
 		Cliente c = new Cliente();
@@ -28,6 +36,10 @@ public class ClienteRepositorioTest {
 		}
 	}
 
+	/**
+	 * Metodo que tenta atualizar os dados do cliente que foram
+	 * persistidos atraves do metodo @BeforeClass "testSalvar"
+	 */
 	@Test
 	public void testAtualizar() {
 		Cliente c = new Cliente();
@@ -48,6 +60,9 @@ public class ClienteRepositorioTest {
 		}
 	}
 
+	/**
+	 * Metodo que testa o find e tenta localizar os dados do cliente persistido
+	 */
 	@Test
 	public void testEncontrar() {
 		Cliente c = new Cliente();
@@ -63,6 +78,10 @@ public class ClienteRepositorioTest {
 		}
 	}
 
+	/**
+	 * Metodo que e excutado depois de todos os testes. 
+	 * Testa a deleação e remove o cliente passado por parametro.
+	 */
 	@AfterClass
 	public static void testRemover() {
 		Cliente c = new Cliente();

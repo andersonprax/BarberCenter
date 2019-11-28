@@ -14,6 +14,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import entidades.Cliente;
 import fachada.Fachada;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class TesteFuncionalidadeAtualizarCliente {
 
 	// Atributos de inicialização
@@ -52,10 +57,16 @@ public class TesteFuncionalidadeAtualizarCliente {
 			driver.quit();
 	}
 
+	/**
+	 * Metodo que faz o teste para atualizar os dados do cliente.
+	 * Abre o navegador, faz login e na pag de perfil altera o nome e salva na base
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void testarAtualizarCliente() throws InterruptedException {
 
 		/* Arrange */
+		
 		// Abrindo a página inicial
 		driver.get("localhost:8080/BarberCenter/loginCliente.xhtml");
 		// Dando um tempo para que a página esteja pronta para receber o click no botao.
@@ -84,20 +95,22 @@ public class TesteFuncionalidadeAtualizarCliente {
 		element.sendKeys(cliente.getSenha());
 	
 		/* ACT */
+		
 		// Aqui clico o botão para atualizar.
 		element = driver.findElement(By.id("formPrincipal:atualizar"));
 		Thread.sleep(3000);
 		element.click();
 		// Aguardo 1 seg
 		Thread.sleep(5000);
+		
+		/* Assert */
+		
 		try {
 			//Colocando a mascara conforme esta na tela e no banco
 			cliente.setCpf("007.766.854-58");
-			/* Assert */
 			assertEquals(cliente.getNome(), new Fachada().buscarCliente(cliente, true).getNome());
 		} catch (Exception e) {
 			fail("Clienta Não Atualizado!"+ e.getMessage());
 		}
-
 	}
 }

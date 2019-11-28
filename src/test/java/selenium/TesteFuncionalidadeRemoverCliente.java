@@ -14,6 +14,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import entidades.Cliente;
 import fachada.Fachada;
 
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
 public class TesteFuncionalidadeRemoverCliente {
 
 	// Atributos de inicialização
@@ -53,13 +58,15 @@ public class TesteFuncionalidadeRemoverCliente {
 	}
 
 	/**
-	 * metodo que faz a deleção do cliente cadastrado Este teste dará erro pois o
-	 * JSF não está reconhecendo o metodo REMOVER no managedBean Cliente
+	 * metodo que faz a deleção do cliente cadastrado. Acessa a pagina de login cliente
+	 * e na pagina de pergil, preenche a senha e clica em excluir, e confirma a exlusão.
 	 * 
 	 * @throws InterruptedException
 	 */
 	@Test
 	public void testRemoverCliente() throws InterruptedException, NullPointerException {
+		
+		/* Arrange */
 		
 		// Abrindo a página inicial
 		driver.get("localhost:8080/BarberCenter/loginCliente.xhtml");
@@ -84,6 +91,9 @@ public class TesteFuncionalidadeRemoverCliente {
 		// Aqui preencho os campos de Senha
 		element = driver.findElement(By.id("formPrincipal:confirmarSenha"));
 		element.sendKeys(cliente.getSenha());
+		
+		/* ACT */
+		
 		//Aqui clico no botao Excluir
 		element = driver.findElement(By.id("formPrincipal:j_idt19"));
 		element.click();
@@ -94,6 +104,8 @@ public class TesteFuncionalidadeRemoverCliente {
 		// Aqui faço o clique no botão
 		element.click();
 		Thread.sleep(3000);
+		
+		/* Assert */
 		try {
 			assertNull(new Fachada().buscarCliente(cliente, true));
 			Thread.sleep(2000);
