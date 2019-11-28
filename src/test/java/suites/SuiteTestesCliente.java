@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import selenium.*;
 import repositorio.*;
 
+//Suite de classes de testes a serem exuctados
 @RunWith(Suite.class)
 @SuiteClasses({
 	TesteFunionalidadeCadastrarCliente.class,
@@ -13,6 +14,9 @@ import repositorio.*;
 	TesteFuncionalidadeRemoverCliente.class,
 	ClienteRepositorioTest.class
 })
-public class SuiteTestesCliente {
-	
-}
+/**
+ * 
+ * @author pedro.silva
+ *
+ */
+public class SuiteTestesCliente{}
