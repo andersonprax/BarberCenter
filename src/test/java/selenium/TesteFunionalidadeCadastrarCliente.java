@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import dao.ConstantesSistema;
 import entidades.Cliente;
 import fachada.Fachada;
 
@@ -21,7 +22,7 @@ public class TesteFunionalidadeCadastrarCliente {
 	// Atributos de inicialização
 	private static WebDriver driver;
 	public final Cliente cliente = new Cliente();
-
+	
 	/**
 	 * Metodo que prepara o Selenium para ser usado.
 	 * 
@@ -31,8 +32,7 @@ public class TesteFunionalidadeCadastrarCliente {
 	public void setUpBeforeClass() throws Exception {
 		// Setando as propriedades do driver do nagegador a ser usado. E indicando o
 		// local do driver
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\silva\\Documents\\Eclipse Projects\\BarberCenter\\src\\main\\webapp\\lib\\chromedriver.exe");
+		System.setProperty(ConstantesSistema.CHORME_DRIVER_WEB, new FindChromeDriver().getChormeDriverLocation());
 		// Abrindo o navegador
 		driver = new ChromeDriver();
 		// Preenchendo objeto que será persistido pelo selenium

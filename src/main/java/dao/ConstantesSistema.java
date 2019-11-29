@@ -14,4 +14,9 @@ public class ConstantesSistema {
 	public static final String VIEW_CADASTRAR_CLIENTE = "cadastroDeCliente.xhtml";
 	public static final String VIEW_PERFIL_CLIENTE = "perfilCliente.xhtml";
 	public static final String VIEW_LOGIN_CLIENTE = "loginCliente.xhtml";
+	
+	//ChromeDriver Para Testes
+	public static final String CHORME_DRIVER_WEB = "webdriver.chrome.driver";
+	public static final String CHROME_DRIVER = "chromedriver.exe";
+	
 }
