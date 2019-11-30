@@ -1,5 +1,8 @@
 package entidades;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +35,9 @@ public class Servicos implements IEntidade {
 	
 	@ManyToOne
 	private Barbearia barbearia;
+	
+	@ManyToOne(cascade= CascadeType.ALL)  
+	private Set<Agendamento> agendamento; 
 
 	public Servicos() {
 		super();
