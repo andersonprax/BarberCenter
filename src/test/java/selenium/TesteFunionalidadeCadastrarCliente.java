@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import dao.ConstantesSistema;
 import entidades.Cliente;
 import fachada.Fachada;
+import selenium.FindChromeDriver;
 
 /**
  * 
