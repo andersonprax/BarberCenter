@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import dao.ClienteRepositorio;
 import dao.ConstantesSistema;
 import entidades.Cliente;
+import fachadaDao.FachadaDaoImpl;
 
 /**
  * 
@@ -57,8 +58,9 @@ public class ControllerCliente {
 	 * @param cliente
 	 */
 	public void salvarCliente(Cliente cliente) {
-		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-		clienteRepositorio.salvar(cliente, true);
+//		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+//		clienteRepositorio.salvar(cliente, true);
+		FachadaDaoImpl.getInstacia().salvarCliente(cliente);
 	}
 	
 	/**
@@ -66,7 +68,8 @@ public class ControllerCliente {
 	 * @param cliente
 	 */
 	public void atualizarCliente(Cliente cliente) {
-		new ClienteRepositorio().atualizar(cliente, true);
+//		new ClienteRepositorio().atualizar(cliente, true);
+		FachadaDaoImpl.getInstacia().atualizarCliente(cliente);
 	}
 
 	/**
@@ -84,7 +87,8 @@ public class ControllerCliente {
 	 * @return Cliente
 	 */
 	public Cliente buscarCliente(Cliente cliente, boolean b) {
-		return new ClienteRepositorio().buscarCliente(cliente, b);
+//		return new ClienteRepositorio().buscarCliente(cliente, b);
+		return FachadaDaoImpl.getInstacia().buscarCliente(cliente, b);
 	}
 	
 
@@ -95,7 +99,8 @@ public class ControllerCliente {
 	 * @return Cliente
 	 */
 	public Cliente login(Cliente cliente, boolean b) {
-		return new ClienteRepositorio().login(cliente, b);
+//		return new ClienteRepositorio().login(cliente, b);
+		return FachadaDaoImpl.getInstacia().loginCliente(cliente, b);
 	}
 	/**
 	 * Metodo que lista todos os clientes cadastrado no sgbd
@@ -103,7 +108,8 @@ public class ControllerCliente {
 	 * @return List<Cliente>
 	 */
 	public List<Cliente> listarClientes() {
-		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-		return clienteRepositorio.listarTodos();
+//		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+//		return clienteRepositorio.listarTodos();
+		return FachadaDaoImpl.getInstacia().listarClientes();
 	}
 }
