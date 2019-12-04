@@ -1,15 +1,11 @@
 package entidades;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
@@ -54,8 +50,6 @@ public class Servicos implements IEntidade {
 		this.barbearia = barbearia;
 		this.agendamento = agendamento;
 	}
-
-
 
 	public Object getPrimaryKey() {
 		
@@ -109,5 +103,4 @@ public class Servicos implements IEntidade {
 	public void setAgendamento(Agendamento agendamento) {
 		this.agendamento = agendamento;
 	}
-
 }

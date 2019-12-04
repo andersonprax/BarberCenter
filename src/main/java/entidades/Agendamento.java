@@ -2,13 +2,11 @@ package entidades;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
@@ -51,8 +49,6 @@ public class Agendamento implements IEntidade{
 	public Agendamento() {
 		super();
 	}
-
-	
 	
 	public Agendamento(int id, Date date, int status, List<Servicos> servicos, Cliente cliente, Barbearia barbearia) {
 		super();
@@ -63,8 +59,6 @@ public class Agendamento implements IEntidade{
 		this.cliente = cliente;
 		this.barbearia = barbearia;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -122,9 +116,7 @@ public class Agendamento implements IEntidade{
 		this.version = version;
 	}
 
-
 	public Object getPrimaryKey() {
 		return getId();
 	}
-
 }

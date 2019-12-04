@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
-import dao.ClienteRepositorio;
 import dao.ConstantesSistema;
 import entidades.Cliente;
 import fachadaDao.FachadaDaoImpl;
@@ -87,7 +86,6 @@ public class ControllerCliente {
 		return FachadaDaoImpl.getInstacia().buscarCliente(cliente, b);
 	}
 	
-
 	/**
 	 * Metodo que retorna o cliente a partir do email e senha fornecia na tela de login
 	 * @param cliente
