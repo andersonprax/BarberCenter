@@ -1,5 +1,6 @@
 package entidades;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
@@ -37,20 +39,23 @@ public class Servicos implements IEntidade {
 	private Barbearia barbearia;
 	
 	@ManyToOne(cascade= CascadeType.ALL)  
-	private Set<Agendamento> agendamento; 
+	private Agendamento agendamento; 
 
 	public Servicos() {
 		super();
 	}
 
-	public Servicos(int id, String nome, String descricao, Double valor, Barbearia barbearia) {
+	public Servicos(int id, String nome, String descricao, Double valor, Barbearia barbearia, Agendamento agendamento) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.barbearia = barbearia;
+		this.agendamento = agendamento;
 	}
+
+
 
 	public Object getPrimaryKey() {
 		
@@ -97,5 +102,12 @@ public class Servicos implements IEntidade {
 		this.barbearia = barbearia;
 	}
 
+	public Agendamento getAgendamento() {
+		return agendamento;
+	}
+
+	public void setAgendamento(Agendamento agendamento) {
+		this.agendamento = agendamento;
+	}
 
 }
