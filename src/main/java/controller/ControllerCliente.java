@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
-import dao.ClienteRepositorio;
 import dao.ConstantesSistema;
 import entidades.Cliente;
 import fachadaDao.FachadaDaoImpl;
@@ -58,8 +57,6 @@ public class ControllerCliente {
 	 * @param cliente
 	 */
 	public void salvarCliente(Cliente cliente) {
-//		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-//		clienteRepositorio.salvar(cliente, true);
 		FachadaDaoImpl.getInstacia().salvarCliente(cliente);
 	}
 	
@@ -68,7 +65,6 @@ public class ControllerCliente {
 	 * @param cliente
 	 */
 	public void atualizarCliente(Cliente cliente) {
-//		new ClienteRepositorio().atualizar(cliente, true);
 		FachadaDaoImpl.getInstacia().atualizarCliente(cliente);
 	}
 
@@ -77,7 +73,7 @@ public class ControllerCliente {
 	 * @param cliente
 	 */
 	public void removerCliente(Cliente cliente) {
-		new ClienteRepositorio().removerCliente(cliente);
+		FachadaDaoImpl.getInstacia().removerCliente(cliente);
 	}
 	
 	/**
@@ -87,11 +83,9 @@ public class ControllerCliente {
 	 * @return Cliente
 	 */
 	public Cliente buscarCliente(Cliente cliente, boolean b) {
-//		return new ClienteRepositorio().buscarCliente(cliente, b);
 		return FachadaDaoImpl.getInstacia().buscarCliente(cliente, b);
 	}
 	
-
 	/**
 	 * Metodo que retorna o cliente a partir do email e senha fornecia na tela de login
 	 * @param cliente
@@ -99,7 +93,6 @@ public class ControllerCliente {
 	 * @return Cliente
 	 */
 	public Cliente login(Cliente cliente, boolean b) {
-//		return new ClienteRepositorio().login(cliente, b);
 		return FachadaDaoImpl.getInstacia().loginCliente(cliente, b);
 	}
 	/**
@@ -108,8 +101,6 @@ public class ControllerCliente {
 	 * @return List<Cliente>
 	 */
 	public List<Cliente> listarClientes() {
-//		ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-//		return clienteRepositorio.listarTodos();
 		return FachadaDaoImpl.getInstacia().listarClientes();
 	}
 }

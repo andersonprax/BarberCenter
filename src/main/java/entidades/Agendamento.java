@@ -1,13 +1,12 @@
 package entidades;
 
 import java.util.Date;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
@@ -35,8 +34,7 @@ public class Agendamento implements IEntidade{
 	private int status;
 	
 	@OneToMany  
-	@JoinColumn(name="servicos_id", referencedColumnName="id", nullable=false)  
-	private Servicos servicos;
+	private List<Servicos> servicos;
 	
 	@ManyToOne
 	private Cliente cliente;
@@ -51,8 +49,8 @@ public class Agendamento implements IEntidade{
 	public Agendamento() {
 		super();
 	}
-
-	public Agendamento(int id, Date date, int status, Servicos servicos, Cliente cliente, Barbearia barbearia, Date version) {
+	
+	public Agendamento(int id, Date date, int status, List<Servicos> servicos, Cliente cliente, Barbearia barbearia) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -60,9 +58,8 @@ public class Agendamento implements IEntidade{
 		this.servicos = servicos;
 		this.cliente = cliente;
 		this.barbearia = barbearia;
-		this.version = version;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -87,11 +84,11 @@ public class Agendamento implements IEntidade{
 		this.status = status;
 	}
 
-	public Servicos getServicos() {
+	public List<Servicos> getServicos() {
 		return servicos;
 	}
 
-	public void setServicos(Servicos servicos) {
+	public void setServicos(List<Servicos> servicos) {
 		this.servicos = servicos;
 	}
 
@@ -119,9 +116,7 @@ public class Agendamento implements IEntidade{
 		this.version = version;
 	}
 
-
 	public Object getPrimaryKey() {
 		return getId();
 	}
-
 }
