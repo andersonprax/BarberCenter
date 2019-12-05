@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.sun.istack.NotNull;
 
@@ -18,22 +19,25 @@ public class Produto implements IEntidade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProd;
+	private int id;
 	
 	@NotNull
-    private String nomeProd;
+    private String nome;
 	
 	@NotNull
-    private String descricaoProd;
+    private String descricao;
 	
 	@NotNull
-    private int quantidadeProd;
+    private int quantidade;
 	
 	@NotNull
-    private double valorProd;
+    private double valor;
 	
-	@ManyToOne
+	@OneToMany
 	private Barbearia barbearia;
+	
+	@OneToMany
+	private Pagamento pagamento;
 	
 	public Produto(){
 		super ();
@@ -41,75 +45,75 @@ public class Produto implements IEntidade {
 
 	
 
-	public Produto(int idProd, String nomeProd, String descricaoProd, int quantidadeProd, double valorProd,
+	public Produto(int id, String nome, String descricao, int quantidade, double valor,
 			Barbearia barbearia) {
 		super();
-		this.idProd = idProd;
-		this.nomeProd = nomeProd;
-		this.descricaoProd = descricaoProd;
-		this.quantidadeProd = quantidadeProd;
-		this.valorProd = valorProd;
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.quantidade = quantidade;
+		this.valor = valor;
 		this.barbearia = barbearia;
 	}
 
 
 
-	public int getIdProd() {
-		return idProd;
+	public int getId() {
+		return id;
 	}
 
 
 
-	public void setIdProd(int idProd) {
-		this.idProd = idProd;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
 
-	public String getNomeProd() {
-		return nomeProd;
+	public String getNome() {
+		return nome;
 	}
 
 
 
-	public void setNomeProd(String nomeProd) {
-		this.nomeProd = nomeProd;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 
 
-	public String getDescricaoProd() {
-		return descricaoProd;
+	public String getDescricao() {
+		return descricao;
 	}
 
 
 
-	public void setDescricaoProd(String descricaoProd) {
-		this.descricaoProd = descricaoProd;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 
 
-	public int getQuantidadeProd() {
-		return quantidadeProd;
+	public int getQuantidade() {
+		return quantidade;
 	}
 
 
 
-	public void setQuantidadeProd(int quantidadeProd) {
-		this.quantidadeProd = quantidadeProd;
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 
 
-	public double getValorProd() {
-		return valorProd;
+	public double getValor() {
+		return valor;
 	}
 
 
 
-	public void setValorProd(double valorProd) {
-		this.valorProd = valorProd;
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 
 
@@ -128,6 +132,6 @@ public class Produto implements IEntidade {
 
 	public Object getPrimaryKey() {
 		// TODO Auto-generated method stub
-		return getIdProd();
+		return getId();
 	}	
 }

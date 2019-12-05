@@ -1,10 +1,13 @@
 package entidades;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import com.sun.istack.NotNull;
@@ -32,6 +35,8 @@ public class Cliente implements IEntidade {
 	@NotNull
 	@Column(name = "senha",length = 64)
 	private String senha;
+	@ManyToOne(cascade= CascadeType.ALL)  
+	private Set<Pagamento> pagamento;
 	
 	@Version
 	@NotNull

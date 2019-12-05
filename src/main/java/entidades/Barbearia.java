@@ -1,9 +1,12 @@
 package entidades;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import com.sun.istack.NotNull;
@@ -28,6 +31,10 @@ public class Barbearia implements IEntidade{
 	private String pessoaResponsavel;
 	@NotNull
 	private String senha;
+	@ManyToOne(cascade= CascadeType.ALL)  
+	private Set<Pagamento> pagamento;
+	@ManyToOne(cascade= CascadeType.ALL)  
+	private Set<Produto> produto;
 	
 	@Version
 	private Date version;

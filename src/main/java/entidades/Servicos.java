@@ -1,5 +1,6 @@
 package entidades;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
@@ -38,6 +40,10 @@ public class Servicos implements IEntidade {
 	
 	@ManyToOne(cascade= CascadeType.ALL)  
 	private Set<Agendamento> agendamento; 
+	
+	@ManyToMany (mappedBy = "servicos", cascade= CascadeType.ALL)
+	private List Pagamento;
+
 
 	public Servicos() {
 		super();
