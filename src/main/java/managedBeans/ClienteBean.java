@@ -1,14 +1,20 @@
 package managedBeans;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.annotation.PostConstruct;
+
+import dao.AgendamentoRepositorio;
 import dao.ConstantesSistema;
+import entidades.Agendamento;
 import entidades.Cliente;
 import fachada.Fachada;
+import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 /**
  * 
@@ -28,24 +34,24 @@ public class ClienteBean {
 	}
 
 	/**
-	 * Metodos que pega o obj cliente e faz validação
+	 * Metodos que pega o obj cliente e faz validaï¿½ï¿½o
 	 */
 	public void validarSalvar() {
 
-		// Verificando se todos os atribudos do cliente estão preenchidos
+		// Verificando se todos os atribudos do cliente estï¿½o preenchidos
 		if (Fachada.getInstancia().validarSalvarCliente(cliente) == true) {
 			// validando o email
 			FacesMessage faces = Fachada.getInstancia().validarEmail(cliente);
 			if (faces == null) {
-				// Se o email está correto - Chamo metodo para criptografar a senha
+				// Se o email estï¿½ correto - Chamo metodo para criptografar a senha
 				criptografarSenha(cliente.getSenha());
-				// Criptografando senha de confirmação
+				// Criptografando senha de confirmaï¿½ï¿½o
 				confirmarSenha = Fachada.getInstancia().criptografarSenha(confirmarSenha);
-				// Verificando se as senhas digitadas são iguais. Se sim, persisto o objeto na
+				// Verificando se as senhas digitadas sï¿½o iguais. Se sim, persisto o objeto na
 				// base
 				if (cliente.getSenha().equals(confirmarSenha)) {
 					try {
-						//Validando se já existe registro na Base com os dados preenchidos na tela. Se não houver, será obtido null e passa.
+						//Validando se jï¿½ existe registro na Base com os dados preenchidos na tela. Se nï¿½o houver, serï¿½ obtido null e passa.
 						if (consultarCliente(true) == null) {
 							// Persistir Cliente na base
 							salvarCliente(cliente);
@@ -65,12 +71,12 @@ public class ClienteBean {
 					}
 				}
 				else {
-					//Msg de erro caso a senha de confirmação nao seja igual a senha digitada previamente.
+					//Msg de erro caso a senha de confirmaï¿½ï¿½o nao seja igual a senha digitada previamente.
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantesSistema.CONFIRMACAO_DE_SENHA, ""));
 				}
 			} else
-				// Se o email não for valido exibo a mensagem.
+				// Se o email nï¿½o for valido exibo a mensagem.
 				FacesContext.getCurrentInstance().addMessage(null, faces);
 		} else
 			//Se faltou preencher algum campo e exibida a msg abaixo. 
@@ -86,11 +92,11 @@ public class ClienteBean {
 			// validando o email
 			FacesMessage faces = Fachada.getInstancia().validarEmail(cliente);
 			if (faces == null) {
-				// Se o email está correto - Chamo metodo para criptografar a senha
+				// Se o email estï¿½ correto - Chamo metodo para criptografar a senha
 				criptografarSenha(cliente.getSenha());
-				// Criptografando senha de confirmação
+				// Criptografando senha de confirmaï¿½ï¿½o
 				confirmarSenha = Fachada.getInstancia().criptografarSenha(confirmarSenha);
-				// Verificando se as senhas digitadas são iguais. Se sim, persisto o objeto na
+				// Verificando se as senhas digitadas sï¿½o iguais. Se sim, persisto o objeto na
 				// base
 				if (cliente.getSenha().equals(confirmarSenha)) {
 					try {
@@ -108,7 +114,7 @@ public class ClienteBean {
 	}
 
 	/**
-	 * Metodo que faz a deleção do cliente na base
+	 * Metodo que faz a deleï¿½ï¿½o do cliente na base
 	 */
 	public void removerClientes() {
 		if (cliente != null) {
@@ -160,13 +166,13 @@ public class ClienteBean {
 	 */
 	public void login() {
 		try {
-			//Setando senha na variavel de confirmação ja com a criptografia
+			//Setando senha na variavel de confirmaï¿½ï¿½o ja com a criptografia
 			confirmarSenha = Fachada.getInstancia().criptografarSenha(cliente.getSenha());
 			//setando a senha criptografada no objeto, e assim fazer a busca na base
 			cliente.setSenha(confirmarSenha);
 			//Indo buscar onjeto na base
 			cliente = Fachada.getInstancia().login(cliente, true);
-			//Verificando se a senha que foi trazida no objeto confere com a senha de confirmação. Se sim passa.
+			//Verificando se a senha que foi trazida no objeto confere com a senha de confirmaï¿½ï¿½o. Se sim passa.
 			if(cliente==null) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.CADASTRO_NAO_LOCALIZADO, ""));
@@ -180,7 +186,7 @@ public class ClienteBean {
 					}
 				
 			}else {
-				//Se os dados de senha não baterem exibo mensagem.
+				//Se os dados de senha nï¿½o baterem exibo mensagem.
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.EMAIL_OU_SENHA_INVALIDO, ""));
 			}
@@ -197,6 +203,7 @@ public class ClienteBean {
 	 */
 	public void redirecionarPagCadastrarCliente() {
 		try {
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Cliente", cliente);
 			FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_CADASTRAR_CLIENTE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -205,7 +212,7 @@ public class ClienteBean {
 	}
 
 	/**
-	 * Metodo que redireciona o cliente para sua págnia de perfil
+	 * Metodo que redireciona o cliente para sua pï¿½gnia de perfil
 	 */
 	public void redirecionarPagPerfilDoCliente() {
 		try {
@@ -227,6 +234,14 @@ public class ClienteBean {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void redirecionarPagBarber() {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("Barbearias.xhtml");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -279,4 +294,5 @@ public class ClienteBean {
 	public void setConfirmarSenha(String confirmarSenha) {
 		this.confirmarSenha = confirmarSenha;
 	}
+	
 }

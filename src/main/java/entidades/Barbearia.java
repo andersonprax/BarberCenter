@@ -3,6 +3,8 @@ package entidades;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
@@ -17,7 +19,10 @@ public class Barbearia implements IEntidade{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private int cnpj;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@NotNull
+	private String cnpj;
 	@NotNull
 	private String nome;
 	@NotNull
@@ -36,7 +41,7 @@ public class Barbearia implements IEntidade{
 		super();
 	}
 	
-	public Barbearia(int cnpj, String nome, String email, String telefone, String pessoaResponsavel, String senha, Date version) {
+	public Barbearia(String cnpj, String nome, String email, String telefone, String pessoaResponsavel, String senha, Date version) {
 		super();
 		this.cnpj = cnpj;
 		this.nome = nome;
@@ -47,11 +52,11 @@ public class Barbearia implements IEntidade{
 		this.version = version;
 	}
 
-	public int getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(int cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -103,8 +108,12 @@ public class Barbearia implements IEntidade{
 		this.version = version;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	public Object getPrimaryKey() {
-		return getCnpj();
+		return getId();
 	}	
 	
 }

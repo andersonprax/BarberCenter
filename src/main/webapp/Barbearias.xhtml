@@ -1,0 +1,89 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<style type="text/css">
+    .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+        text-align: center; 
+    }
+</style>
+</h:head>
+	<h:body>
+		<h:form id="formListagem">
+			<p:panel header="Barbearias - Listagem">
+				<p:dataTable emptyMessage="Nenhuma Barbearia Encontrada"
+					paginator="true"
+					value="#{barbeariaBeans.barbearias}"
+					var="barbearia"
+					id="tabelaBarbearias">
+					
+					<p:column headerText="Nome da barbearia">
+						<h:outputText value="#{barbearia.nome}"/>
+					</p:column>
+					
+					<p:column headerText="Emai da barbearia">
+						<h:outputText value="#{barbearia.email}"/>
+					</p:column>
+					
+					<p:column headerText="Barbeiro responsável">
+						<h:outputText value="#{barbearia.pessoaResponsavel}"/>
+					</p:column>
+					
+					<p:column headerText="Telefone da Barbearia">
+						<h:outputText value="#{barbearia.telefone}"/>
+					</p:column>
+					
+					<p:column headerText="Contratar Serviços">
+						<p:commandButton action="#{barbeariaBeans.carregarServicosPorBarbearia(barbearia)}" oncomplete="PF('modalServicos').show();" update=":formServico:tabelaServicos" value="Agendar Serviços">
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+		
+		<h:form>
+			<p:panel header="Barbearias disponíveis">
+				<p:commandButton value="Barbearias" action="#{clienteBean.redirecionarPagBarber}"></p:commandButton>
+			</p:panel>
+		</h:form>
+		
+		<p:dialog header="Serviços" widgetVar="modalServicos" draggable="false" resizable="true" modal="true" width="1000px">
+			<h:form id="formServico">
+				<p:dataTable emptyMessage="Nenhum serviço disponível"
+					value="#{barbeariaBeans.servicos}"
+					var="servico"
+					id="tabelaServicos"
+					selection="#{barbeariaBeans.servicosSelecionados}"
+					rowKey="#{servico.id}">
+					
+					<p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+					
+					<p:column headerText="Nome do serviço">
+						<h:outputText value="#{servico.nome}"/>
+					</p:column>
+					
+					<p:column headerText="Descrição do serviço">
+						<h:outputText value="#{servico.descricao}"/>
+					</p:column>
+					
+					<p:column headerText="valor do serviço">
+						<h:outputText value="#{servico.valor}"/>
+					</p:column>
+				</p:dataTable>
+				<br/>
+				<p:outputLabel for="button" value="Button:" />
+		        <br/>
+		        <p:calendar id="button" value="#{barbeariaBeans.data}" showOn="button" />
+				<p:commandButton value="Agendar" action="#{barbeariaBeans.agendar(clienteBean.cliente)}"></p:commandButton>
+				
+			</h:form>
+		</p:dialog>
+		
+	</h:body>
+</ui:composition>

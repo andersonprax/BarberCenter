@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
@@ -34,7 +35,8 @@ public class Servicos implements IEntidade {
 	@ManyToOne
 	private Barbearia barbearia;
 	
-	@ManyToOne(cascade= CascadeType.ALL)  
+	@ManyToOne
+	@JoinColumn(insertable = false, updatable = false)
 	private Agendamento agendamento; 
 
 	public Servicos() {
