@@ -53,9 +53,9 @@
 			</p:panel>
 		</h:form>
 		
-		<p:dialog header="Serviços" widgetVar="modalServicos" draggable="false" resizable="true" modal="true" width="1000px">
-			<h:form id="formServico">
-				<p:dataTable emptyMessage="Nenhum serviço disponível"
+		<p:dialog id="agendarDialog" header="Serviços" widgetVar="modalServicos" draggable="false" resizable="true" modal="true" width="1000px" showEffect="fade" hideEffect="fade" >
+			<h:form id="formServico" >
+				<p:dataTable emptyMessage="Nenhum serviço disponível" 
 					value="#{barbeariaBeans.servicos}"
 					var="servico"
 					id="tabelaServicos"
@@ -79,8 +79,8 @@
 				<br/>
 				<p:outputLabel for="button" value="Button:" />
 		        <br/>
-		        <p:calendar id="button" value="#{barbeariaBeans.data}" showOn="button" />
-				<p:commandButton value="Agendar" action="#{barbeariaBeans.agendar(clienteBean.cliente)}"></p:commandButton>
+		        <p:calendar id="button" value="#{barbeariaBeans.data}" showOn="button" pattern="dd/MM/yyyy" maxlength="10" placeholder="00/00/0000"  mask="99/99/9999"/>
+				<p:commandButton value="Agendar" action="#{barbeariaBeans.agendar(clienteBean.cliente)}"  onclick="PF('agendarDialog').hide()"></p:commandButton>
 				
 			</h:form>
 		</p:dialog>

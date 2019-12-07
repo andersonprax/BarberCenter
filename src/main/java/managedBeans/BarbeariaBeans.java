@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import dao.AgendamentoRepositorio;
@@ -31,6 +32,7 @@ public class BarbeariaBeans implements Serializable{
 	Servicos servico = new Servicos();
 	List<Barbearia> barbearias;
 	List<Servicos> servicos, servicosSelecionados;
+	public Cliente cliente = new Cliente();
 	
 	public BarbeariaBeans() {
 	
@@ -40,6 +42,10 @@ public class BarbeariaBeans implements Serializable{
 	public void init() {
 		try {
 			barbearias = barbeariaRepositorio.consultarTodasBarbearias();
+			//Aqui Recupero o Cliente salvo no cliente Bean
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			//Aqui Seto o cliente no objeto
+	        this.cliente = (Cliente) ec.getRequestMap().get("cliente");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,21 +62,21 @@ public class BarbeariaBeans implements Serializable{
 		
 	}
 	
+	
 	public void agendar(Cliente cliente) {
 		
 		try {
 			Date d = new Date();
 			Agendamento agendamento = new Agendamento();
 			agendamento.setBarbearia(this.barbearia);
-			agendamento.setCliente(cliente);
+			//Aqui seto o cliente recuperado do ClienteBean
+			agendamento.setCliente(this.cliente);
 			agendamento.setServicos(servicosSelecionados);
 			agendamento.setStatus(10);
 			agendamento.setVersion(d);
 			agendamento.setDate(data);
 			
 			agendamentoRepositorio.salvar(agendamento, false);
-			
-			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -151,6 +157,20 @@ public class BarbeariaBeans implements Serializable{
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 }
