@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.annotation.PostConstruct;
 
@@ -235,13 +236,21 @@ public class ClienteBean {
 		}
 		
 	}
-	
-	public void redirecionarPagBarber() {
+	/**
+	 * Metodo que redireciona o Cliente para a pagina das barbearias disponiveis.
+	 * Salva o objeto no ExternalContext para usar o objto no bean Barbearia
+	 * @return String que faz o redirecionamento
+	 */
+	public String redirecionarPagBarber() {
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("Barbearias.xhtml");
+			//Aqui salvo o cliente no ExternalContext
+			 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		        ec.getRequestMap().put("cliente", cliente);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		//Aqui retorno a string com a pag da barbearia
+		return ConstantesSistema.VIEW_BARBEARIA;
 	}
 
 	/**
