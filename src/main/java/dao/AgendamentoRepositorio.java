@@ -12,7 +12,7 @@ public class AgendamentoRepositorio extends BasicoAbstratoRepositorio<Agendament
 	public List<Agendamento> consultarPorCliente(String cpf){
 		List<Agendamento> resultSet;
 		try {
-			String querySelector = "select a from Agendamento a where cliente_cpf = " + cpf;
+			String querySelector = "select a from Agendamento a where cliente_cpf = " + "'"+ cpf + "'";
 			TypedQuery<Agendamento> typedQuery = JpaUtil.getEntityManager().createQuery(querySelector, Agendamento.class);
 			resultSet = typedQuery.getResultList();
 			return resultSet;

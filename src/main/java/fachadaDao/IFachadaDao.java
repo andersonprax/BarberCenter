@@ -2,6 +2,7 @@ package fachadaDao;
 
 import java.util.List;
 
+import entidades.Agendamento;
 import entidades.Cliente;
 /**
  * 
@@ -25,4 +26,10 @@ public interface IFachadaDao {
 	public List<Cliente> listarClientes();
 	
 	/* Fim Metodos Cliente */
+	
+	/* Inicio Metodos de Agendamentos */
+	
+	public List<Agendamento> listarAgendamentosPorCliente(String cpf);
+	
+	/* Fim Metodos de Agendamentos */
 }

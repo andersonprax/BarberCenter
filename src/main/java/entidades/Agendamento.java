@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Agendamento implements IEntidade{
 	@Column (name = "status", length = 45)
 	private int status;
 	
-	@OneToMany  
+	@OneToMany (fetch = FetchType.EAGER)
 	private List<Servicos> servicos;
 	
 	@ManyToOne

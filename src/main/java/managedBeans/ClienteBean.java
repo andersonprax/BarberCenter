@@ -1,21 +1,16 @@
 package managedBeans;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.annotation.PostConstruct;
-
-import dao.AgendamentoRepositorio;
 import dao.ConstantesSistema;
-import entidades.Agendamento;
 import entidades.Cliente;
 import fachada.Fachada;
-import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 /**
  * 
@@ -24,8 +19,12 @@ import javassist.bytecode.stackmap.BasicBlock.Catch;
  */
 @ManagedBean(name = "clienteBean")
 @SessionScoped
-public class ClienteBean {
+public class ClienteBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Cliente cliente;
 	private List<Cliente> listaClientes;
 	private String confirmarSenha;
@@ -179,6 +178,9 @@ public class ClienteBean {
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantesSistema.CADASTRO_NAO_LOCALIZADO, ""));
 			}else if(cliente.getSenha().equals(confirmarSenha) ) {
 					try {
+						//Aqui salvo o cliente no ExternalContext
+						 ExternalContext ecContext = FacesContext.getCurrentInstance().getExternalContext();
+					        ecContext.getRequestMap().put("clienteAgendamento",cliente);
 						FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.VIEW_PERFIL_CLIENTE);
 					} catch (Exception e) {
 						//Caso haja algum tipo de erro.
@@ -235,6 +237,20 @@ public class ClienteBean {
 			e.printStackTrace();
 		}
 		
+	}
+	/**
+	 * Metodo que redireciona o cliente para a pagina de agendamentos.
+	 */
+	public void redirecioinarParaMeusAgendamentos() {
+		try {
+			//Aqui salvo o cliente no ExternalContext
+			 ExternalContext ecContext = FacesContext.getCurrentInstance().getExternalContext();
+		        ecContext.getRequestMap().put("clienteAgendamento",cliente);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(ConstantesSistema.AGENDAMENTOS);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Metodo que redireciona o Cliente para a pagina das barbearias disponiveis.
