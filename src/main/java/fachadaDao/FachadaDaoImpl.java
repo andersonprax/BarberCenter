@@ -1,8 +1,9 @@
 package fachadaDao;
 
 import java.util.List;
-
+import dao.AgendamentoRepositorio;
 import dao.ClienteRepositorio;
+import entidades.Agendamento;
 import entidades.Cliente;
 
 /**
@@ -81,4 +82,19 @@ public class FachadaDaoImpl implements IFachadaDao{
 	}
 	
 	/* Fim Metodos Cliente */
+	
+	/* Inicio metodos de Agendamentos */
+	
+	/**
+	 * Metodo que lista todos os agendamentos de um determinado cliente.
+	 * 
+	 * @return List<Agendamento>
+	 */
+	public List<Agendamento> listarAgendamentosPorCliente(String cpf){
+		return new AgendamentoRepositorio().consultarPorCliente(cpf);
+	}
+	
+	
+	
+	/* Fim Metodos de Agendamentos*/
 }

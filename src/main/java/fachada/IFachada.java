@@ -1,7 +1,10 @@
 package fachada;
 
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 
+import entidades.Agendamento;
 import entidades.Cliente;
 
 /**
@@ -16,6 +19,7 @@ public interface IFachada {
 	public String criptografarSenha(String senha);
 	
 	//Fim Metodos de Segurança
+	
 	//Inicio metodos do cliente
 	public boolean validarSalvarCliente(Cliente cliente);
 	
@@ -32,4 +36,9 @@ public interface IFachada {
 	public FacesMessage validarEmail(Cliente cliente);
 	//Fim Metodos Cliente
 
+	/* Inicio Metodos de Agendamento */
+	
+	public List<Agendamento> listarAgendamentos(Cliente cliente);
+	
+	/* Fim Metodos de Agendamento */
 }

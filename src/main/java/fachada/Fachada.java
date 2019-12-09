@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 
+import controller.ControllerAgendamento;
 import controller.ControllerCliente;
 import controller.ControllerSeguranca;
+import entidades.Agendamento;
 import entidades.Cliente;
 
 /**
@@ -72,4 +74,12 @@ public class Fachada implements IFachada {
 		return new ControllerCliente().validarEmail(cliente);
 	}
 	//Fim Metodos Cliente
+	
+	/* Inicio Metodos de Agendamento */
+	
+	public List<Agendamento> listarAgendamentos(Cliente cliente){
+		return new ControllerAgendamento().listarAgendamentos(cliente);
+	}
+	
+	/* Fim Metodos de Agendamento */
 }

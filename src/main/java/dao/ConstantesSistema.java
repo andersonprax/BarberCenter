@@ -15,6 +15,7 @@ public class ConstantesSistema {
 	public static final String VIEW_PERFIL_CLIENTE = "perfilCliente.xhtml";
 	public static final String VIEW_LOGIN_CLIENTE = "loginCliente.xhtml";
 	public static final String VIEW_BARBEARIA = "Barbearias.xhtml";
+	public static final String AGENDAMENTOS = "MeusAgendamentos.xhtml";
 	
 	//ChromeDriver Para Testes
 	public static final String CHORME_DRIVER_WEB = "webdriver.chrome.driver";
