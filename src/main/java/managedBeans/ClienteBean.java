@@ -2,6 +2,7 @@ package managedBeans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,7 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import dao.ConstantesSistema;
+import entidades.Agendamento;
 import entidades.Cliente;
+import entidades.Servicos;
 import fachada.Fachada;
 
 /**
@@ -28,9 +31,17 @@ public class ClienteBean implements Serializable{
 	private Cliente cliente;
 	private List<Cliente> listaClientes;
 	private String confirmarSenha;
+	public Servicos servicos;
+	public List<Servicos> listaServicos;
+	public Agendamento agendamento;
+	List<Agendamento> listaAgendamentos;
 
 	public ClienteBean() {
 		this.cliente = new Cliente();
+		listaClientes = new ArrayList<Cliente>();
+		listaAgendamentos = new ArrayList<Agendamento>();
+		servicos =  new  Servicos();
+		agendamento = new Agendamento();
 	}
 
 	/**
@@ -277,6 +288,30 @@ public class ClienteBean implements Serializable{
 	public List<Cliente> listarClientes() {
 		return Fachada.getInstancia().listarClientes();
 	}
+	
+	/**
+	 * Metodo que lista todos os agendamentoe de um cliente logado no sistema;
+	 * @param cliente
+	 * @return List<Agendamento>
+	 */
+	public List<Servicos> listarAgendamentos(){
+		listaServicos = new ArrayList<Servicos>();
+		listaAgendamentos = Fachada.getInstancia().listarAgendamentos(this.cliente);
+		for(int i =0;i<listaAgendamentos.size();i++) {
+			for(int x=0;x<listaAgendamentos.get(i).getServicos().size();x++) {
+				servicos.setId(listaAgendamentos.get(i).getServicos().get(x).getId());
+				servicos.setNome(listaAgendamentos.get(i).getServicos().get(x).getNome());
+				servicos.setAgendamento(listaAgendamentos.get(i).getServicos().get(x).getAgendamento());
+				servicos.setBarbearia(listaAgendamentos.get(i).getServicos().get(x).getBarbearia());
+				servicos.setDescricao(listaAgendamentos.get(i).getServicos().get(x).getDescricao());
+				servicos.setValor(listaAgendamentos.get(i).getServicos().get(x).getValor());
+				listaServicos.add(servicos);
+				servicos = new Servicos();
+			}
+		}
+			
+		return listaServicos;
+	}
 
 	/**
 	 * @return the cliente
@@ -304,6 +339,38 @@ public class ClienteBean implements Serializable{
 	 */
 	public void setListaClientes(List<Cliente> listaClientes) {
 		this.listaClientes = listaClientes;
+	}
+
+	public Servicos getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(Servicos servicos) {
+		this.servicos = servicos;
+	}
+
+	public Agendamento getAgendamento() {
+		return agendamento;
+	}
+
+	public void setAgendamento(Agendamento agendamento) {
+		this.agendamento = agendamento;
+	}
+
+	public List<Agendamento> getListaAgendamentos() {
+		return listaAgendamentos;
+	}
+
+	public void setListaAgendamentos(List<Agendamento> listaAgendamentos) {
+		this.listaAgendamentos = listaAgendamentos;
+	}
+
+	public List<Servicos> getListaServicos() {
+		return listaServicos;
+	}
+
+	public void setListaServicos(List<Servicos> listaServicos) {
+		this.listaServicos = listaServicos;
 	}
 
 	/**
