@@ -17,6 +17,7 @@ import entidades.Agendamento;
 import entidades.Barbearia;
 import entidades.Cliente;
 import entidades.Servicos;
+import fachada.Fachada;
 
 @ManagedBean
 @ViewScoped
@@ -24,7 +25,7 @@ public class BarbeariaBeans implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	int idBarberSelected;
-	Date data;
+	private Date data = new Date();
 	Barbearia barbearia = new Barbearia();
 	BarbeariaRepositorio barbeariaRepositorio = new BarbeariaRepositorio();
 	ServicoRepositorio servicoRepositorio = new ServicoRepositorio();
@@ -70,13 +71,15 @@ public class BarbeariaBeans implements Serializable{
 			Agendamento agendamento = new Agendamento();
 			agendamento.setBarbearia(this.barbearia);
 			//Aqui seto o cliente recuperado do ClienteBean
-			agendamento.setCliente(this.cliente);
+			agendamento.setCliente(cliente);
 			agendamento.setServicos(servicosSelecionados);
 			agendamento.setStatus(10);
 			agendamento.setVersion(d);
 			agendamento.setDate(data);
-			
-			agendamentoRepositorio.salvar(agendamento, false);
+			System.out.println(data);
+			if(Fachada.getInstancia().validarSalvarAgendamento(agendamento)) {
+				Fachada.getInstancia().salvarAgendamento(agendamento);
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

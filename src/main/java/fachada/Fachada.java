@@ -32,13 +32,13 @@ public class Fachada implements IFachada {
 	public static void setInstancia(Fachada instancia) {
 		Fachada.instancia = instancia;
 	}
-	//Metodos de segurança
+	//Metodos de seguranï¿½a
 	
 	public String criptografarSenha(String senha) {
 		return new ControllerSeguranca().criptografarSenha(senha);
 	}
 	
-	//Fim metodos de segurança	
+	//Fim metodos de seguranï¿½a	
 	
 	//Inicio metodos Clinte
 	
@@ -79,6 +79,14 @@ public class Fachada implements IFachada {
 	
 	public List<Agendamento> listarAgendamentos(Cliente cliente){
 		return new ControllerAgendamento().listarAgendamentos(cliente);
+	}
+	
+	public boolean validarSalvarAgendamento(Agendamento agendamento) {
+		return new ControllerAgendamento().validarSalvarAgendamento(agendamento);
+	}
+	
+	public void salvarAgendamento(Agendamento agendamento) {
+		new ControllerAgendamento().salvarAgendamento(agendamento);
 	}
 	
 	/* Fim Metodos de Agendamento */

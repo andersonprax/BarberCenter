@@ -15,6 +15,17 @@
 </h:head>
 	<h:body>
 		<h:form id="formListagem">
+		
+			<h2 align="center">Bem vindo Cliente</h2>
+			<p:menubar>
+				<p:menuitem value="Página Principal" url="perfilCliente.xhtml" icon="fa fa-home"></p:menuitem>
+				<p:menuitem value="Meus Agendamentos" url="MeusAgendamentos.xhtml" ></p:menuitem>
+				<p:menuitem value="Barbearias" url="Barbearias.xhtml"></p:menuitem>
+				<p:menuitem value="Sair" url="loginCliente.xhtml"></p:menuitem>
+			</p:menubar>
+			<br/><br/>
+			
+			
 			<p:panel header="Barbearias - Listagem">
 				<p:dataTable emptyMessage="Nenhuma Barbearia Encontrada"
 					paginator="true"
@@ -47,12 +58,6 @@
 			</p:panel>
 		</h:form>
 		
-		<h:form>
-			<p:panel header="Barbearias disponíveis">
-				<p:commandButton value="Barbearias" action="#{clienteBean.redirecionarPagBarber}"></p:commandButton>
-			</p:panel>
-		</h:form>
-		
 		<p:dialog id="agendarDialog" header="Serviços" widgetVar="modalServicos" draggable="false" resizable="true" modal="true" width="1000px" showEffect="fade" hideEffect="fade" >
 			<h:form id="formServico" >
 				<p:dataTable emptyMessage="Nenhum serviço disponível" 
@@ -79,7 +84,7 @@
 				<br/>
 				<p:outputLabel for="button" value="Button:" />
 		        <br/>
-		        <p:calendar id="button" value="#{barbeariaBeans.data}" showOn="button" pattern="dd/MM/yyyy" maxlength="10" placeholder="00/00/0000"  mask="99/99/9999"/>
+		        <p:calendar id="button" value="#{barbeariaBeans.data}" showOn="button" pattern="dd/MM/yyyy" maxlength="10" placeholder="00/00/0000"  mask="99/99/9999" mindate="today" readonly="true"/>
 				<p:commandButton value="Agendar" action="#{barbeariaBeans.agendar(clienteBean.cliente)}"  onclick="PF('agendarDialog').hide()"></p:commandButton>
 				
 			</h:form>

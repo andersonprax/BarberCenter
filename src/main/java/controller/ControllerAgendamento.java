@@ -21,4 +21,19 @@ public class ControllerAgendamento {
 		else
 			return null;
 	}
+	
+	public boolean validarSalvarAgendamento(Agendamento agendamento) {
+		boolean verificador = false;
+		
+		if(!agendamento.getBarbearia().equals(null) && !agendamento.getCliente().equals(null) && !agendamento.getServicos().equals(null)
+				&& !agendamento.getDate().equals(null)) {
+			verificador = true;
+		}
+		return verificador;
+	}
+	
+	public void salvarAgendamento(Agendamento agendamento) {
+		FachadaDaoImpl.getInstacia().salvarAgendamento(agendamento);
+	}
 }
+
