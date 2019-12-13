@@ -17,29 +17,30 @@
 		<h:form id="formAgendamentos">
 			<p:panel header="Seus Agendamentos - Listagem" id="panelAgendamentos">
 				<p:dataTable emptyMessage="Nenhum Serviço Agendado" paginator="true"
-					value="#{agendamentoBean.listaAgendamentos}" var="lista"
+					value="#{clienteBean.listarAgendamentos()}" var="lista"
 					id="tabelaAgendamentos">
 
 					<p:column headerText="Nome da barbearia">
 						<h:outputText value="#{lista.barbearia.nome}" />
 					</p:column>
 
-					<!-- <p:column headerText="Emai da barbearia">
-						<h:outputText value="#{barbearia.email}"/>
+					<p:column headerText="Serviço">
+						<h:outputText value="#{lista.descricao}"/>
 					</p:column>
 					
-					<p:column headerText="Barbeiro responsável">
-						<h:outputText value="#{barbearia.pessoaResponsavel}"/>
+					<p:column headerText="Valor Do Servico">
+						<h:outputText value="#{lista.valor}"/>
 					</p:column>
 					
-					<p:column headerText="Telefone da Barbearia">
-						<h:outputText value="#{barbearia.telefone}"/>
-					</p:column>
-					
-					<p:column headerText="Contratar Serviços">
-						<p:commandButton action="#{barbeariaBeans.carregarServicosPorBarbearia(barbearia)}" oncomplete="PF('modalServicos').show();" update=":formServico:tabelaServicos" value="Agendar Serviços">
+					<p:column headerText="Alterar Agendamento">
+						<p:commandButton value="Alterar">
 						</p:commandButton>
-					</p:column> -->
+					</p:column> 
+					
+					<p:column headerText="Desistir do Serviço">
+						<p:commandButton value="Desistir">
+						</p:commandButton>
+					</p:column> 
 
 				</p:dataTable>
 			</p:panel>

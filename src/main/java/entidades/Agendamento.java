@@ -34,7 +34,7 @@ public class Agendamento implements IEntidade{
 	@Column (name = "status", length = 45)
 	private int status;
 	
-	@OneToMany (fetch = FetchType.EAGER)
+	@OneToMany 
 	private List<Servicos> servicos;
 	
 	@ManyToOne
