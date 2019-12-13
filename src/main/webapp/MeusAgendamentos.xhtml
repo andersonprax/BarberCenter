@@ -15,30 +15,41 @@
 	</h:head>
 	<h:body>
 		<h:form id="formAgendamentos">
+		
+			<h2 align="center">Bem vindo Cliente</h2>
+			<p:menubar>
+				<p:menuitem value="Página Principal" url="perfilCliente.xhtml" icon="fa fa-home"></p:menuitem>
+				<p:menuitem value="Meus Agendamentos" url="MeusAgendamentos.xhtml" ></p:menuitem>
+				<p:menuitem value="Barbearias" url="Barbearias.xhtml"></p:menuitem>
+				<p:menuitem value="Sair" url="loginCliente.xhtml"></p:menuitem>
+			</p:menubar>
+			<br/><br/>
+			
 			<p:panel header="Seus Agendamentos - Listagem" id="panelAgendamentos">
 				<p:dataTable emptyMessage="Nenhum Serviço Agendado" paginator="true"
 					value="#{clienteBean.listarAgendamentos()}" var="lista"
-					id="tabelaAgendamentos">
+					id="tabelaAgendamentos"
+					rowKey="#{lista.id}">
 
 					<p:column headerText="Nome da barbearia">
 						<h:outputText value="#{lista.barbearia.nome}" />
 					</p:column>
 
-					<p:column headerText="Serviço">
-						<h:outputText value="#{lista.descricao}"/>
+					<p:column headerText="Quantidade de Serviços">
+						<h:outputText value="#{lista.getServicos().size()}"/>
 					</p:column>
 					
-					<p:column headerText="Valor Do Servico">
+					<!-- p:column headerText="Valor Do Servico">
 						<h:outputText value="#{lista.valor}"/>
 					</p:column>
 					
 					<p:column headerText="Alterar Agendamento">
 						<p:commandButton value="Alterar">
 						</p:commandButton>
-					</p:column> 
+					</p:column> --> 
 					
 					<p:column headerText="Desistir do Serviço">
-						<p:commandButton value="Desistir">
+						<p:commandButton value="Desistir" action="#{clienteBean.excluirAgendamento(lista.id)}" update=":formAgendamentos:tabelaAgendamentos">
 						</p:commandButton>
 					</p:column> 
 

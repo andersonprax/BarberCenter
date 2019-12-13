@@ -1,2 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/fachada/Fachada.java=UTF-8
+encoding//src/main/java/fachadaDao/FachadaDaoImpl.java=UTF-8
+encoding//src/main/java/managedBeans/AgendamentoBean.java=UTF-8
 encoding//src/main/java/managedBeans/ClienteBean.java=UTF-8

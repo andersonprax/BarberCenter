@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import dao.AgendamentoRepositorio;
 import dao.ConstantesSistema;
 import entidades.Agendamento;
 import entidades.Cliente;
@@ -294,10 +296,10 @@ public class ClienteBean implements Serializable{
 	 * @param cliente
 	 * @return List<Agendamento>
 	 */
-	public List<Servicos> listarAgendamentos(){
+	public List<Agendamento> listarAgendamentos(){
 		listaServicos = new ArrayList<Servicos>();
 		listaAgendamentos = Fachada.getInstancia().listarAgendamentos(this.cliente);
-		for(int i =0;i<listaAgendamentos.size();i++) {
+		/*for(int i =0;i<listaAgendamentos.size();i++) {
 			for(int x=0;x<listaAgendamentos.get(i).getServicos().size();x++) {
 				servicos.setId(listaAgendamentos.get(i).getServicos().get(x).getId());
 				servicos.setNome(listaAgendamentos.get(i).getServicos().get(x).getNome());
@@ -308,9 +310,14 @@ public class ClienteBean implements Serializable{
 				listaServicos.add(servicos);
 				servicos = new Servicos();
 			}
-		}
+		}*/
 			
-		return listaServicos;
+		return listaAgendamentos;
+	}
+	
+	public void excluirAgendamento(int idAgendamento) {
+		AgendamentoRepositorio agendamentoRepositorio = new AgendamentoRepositorio();
+		agendamentoRepositorio.remover(Agendamento.class, idAgendamento, true);
 	}
 
 	/**

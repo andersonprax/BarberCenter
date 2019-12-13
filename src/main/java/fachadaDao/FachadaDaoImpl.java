@@ -44,7 +44,7 @@ public class FachadaDaoImpl implements IFachadaDao{
 	}
 
 	/**
-	 * Metodo que faz a deleção do cliente da Base
+	 * Metodo que faz a deleï¿½ï¿½o do cliente da Base
 	 * @param cliente
 	 */
 	public void removerCliente(Cliente cliente) {
@@ -92,6 +92,11 @@ public class FachadaDaoImpl implements IFachadaDao{
 	 */
 	public List<Agendamento> listarAgendamentosPorCliente(String cpf){
 		return new AgendamentoRepositorio().consultarPorCliente(cpf);
+	}
+	
+	public void salvarAgendamento(Agendamento agendamento) {
+		AgendamentoRepositorio agendamentoRepositorio = new AgendamentoRepositorio();
+		agendamentoRepositorio.salvar(agendamento, true);
 	}
 	
 	

@@ -44,6 +44,7 @@ public class AgendamentoBean implements Serializable{
 		//Aqui Seto o cliente no objeto
         this.cliente = (Cliente) ec.getRequestMap().get("clienteAgendamento");     
         listaAgendamentos = Fachada.getInstancia().listarAgendamentos(cliente);
+        System.out.println(listaAgendamentos.get(1).getServicos().get(1).getNome());
 	}
 	
 	/**
@@ -52,7 +53,7 @@ public class AgendamentoBean implements Serializable{
 	 * @return List<Agendamento>
 	 */
 	public List<Agendamento> listarAgendamentos(){
-		//Tentativa de Forçar a recupeção do cliente abaixo.
+		//Tentativa de Forï¿½ar a recupeï¿½ï¿½o do cliente abaixo.
 		//Aqui Recupero o Cliente salvo no cliente Bean
 		ExternalContext ecContext = FacesContext.getCurrentInstance().getExternalContext();
 		//Aqui Seto o cliente no objeto
